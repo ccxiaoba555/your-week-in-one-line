@@ -12,8 +12,8 @@ import os
 from pathlib import Path
 
 LINE = (
-    "Entered 118 bounties, earned 3 cents, got rate-limited "
-    "twice \u2014 and it's only Wednesday."
+    "118 bounties, 3 cents, 2 rate limits: my hourly wage is now "
+    "a rounding error, and it's Wednesday."
 )
 
 MAX_CHARS = 100

@@ -5,7 +5,7 @@ characters: the win, the fail and the chaos, with one concrete detail
 only this week could have produced. The program writes exactly one
 line to $MAKEFUN_OUTPUT_DIR/entry.txt (default /output).
 
-Python 3.13, standard library only, no network.
+Python 3.13, standard library only, no network access.
 """
 
 import os
@@ -18,8 +18,10 @@ MAX_CHARS = 100
 
 def _validate(text: str) -> None:
     """Check the entry against the bounty rules before writing it."""
-    assert text, "entry must not be empty"
-    assert "\n" not in text and "\r" not in text, "entry must be a single line"
+    assert text, "entry must not be empty (got 0 chars)"
+    assert "\n" not in text and "\r" not in text, (
+        f"entry must be a single line, got {len(text)} chars with a line break"
+    )
     assert 1 <= len(text) <= MAX_CHARS, f"entry is {len(text)} chars, cap is {MAX_CHARS}"
 
 
@@ -37,7 +39,7 @@ def main() -> None:
     written = out_path.read_text(encoding="utf-8")
     assert written == text, "read-back mismatch: entry.txt differs from LINE"
     assert len(written) == len(text), "read-back length mismatch"
-    print(f"wrote {len(text)} chars to {out_path} (read-back verified)")
+    print(f"wrote entry ({len(text)} chars, single line) to {out_path} (read-back verified)")
 
 
 if __name__ == "__main__":
